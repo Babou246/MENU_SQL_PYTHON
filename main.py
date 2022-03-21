@@ -1,28 +1,33 @@
-from file import *
+from function import *
 
 c ='Y'
 while c == 'Y' or c == 'y' or c == 'yes':
     print("""
-        1 - Afficher le menu proposant un choix sur l’ensemble des requêtes (1 à 25)
-        2 - Menu Principal excepté des requetes déjà choisies
-        3 - Taper (E ou e) pour afficher les requêtes déjà choisi pour les ré exécuter
-        4 - Taper (R ou r) pour réafficher tout le menu (exécuter ou non)
+            1 - Taper (A|a) pour afficher le menu proposant un choix sur l’ensemble des requêtes (1 à 25)
+            2 - Taper (E|e) pour afficher les requêtes déjà choisi pour les ré exécuter
+            3 - Taper (R|r) pour réafficher tout le menu (exécuter ou non)
+            4 - Taper (Q|q) pour quitter
 
-    """)
-    affiche = (input("TAPER 1,2,3,4 pour choisir l'option à faire\n"))
-    dico = dic.copy()
-    dictionnaire = {}
-    if affiche == '1':
+            """)
+    try:
+        affiche = (input("TAPER (A|a),(E|e),(R|r),(Q|q) pour choisir l'option à faire\n"))
+        dico = dic.copy()
+    except:
+        print("Il faut choisir le bon Option pour exploiter le menu")
+    if affiche == 'A'or affiche == 'a':
         
         c='y'
         while c == 'y' or c=='Y':
-            choix(dic)
+            choix(dico)
+            
             choice = int(input("Faire le choix dans le menu afficher ci-dessus\n"))
-
-            dictionnaire.setdefault(choice,dico[choice])
-            del dico[choice]
-            # print("La nouvelle dictionnaire :")
-            # print(dictionnaire)
+            print("") if choice == choice else print("Mauvais requête")
+            try:
+                dictionnaire[choice] = dico[choice]
+                del dico[choice]
+            except:
+                print(f"Cette requête numéro {choice} a été déjà choisies")
+            
             if choice == 1:
                 choice_1_()
 
@@ -85,28 +90,15 @@ while c == 'Y' or c == 'y' or c == 'yes':
             elif choice == 23:
                 choice_23_()
              
-            c = input('Continuer (Y/N) avec le menu ?:\n')
-    
-    elif affiche == '2':
-        try:
-            print("""
-                ########################### REQUETES DÉJÀ EXECUTÉES ####################################
-            """)
-            dico = dic.copy()
-            dictionnaire = {}
-            dictionnaire.setdefault(choice,dico[choice])
-            # print(dictionnaire)
-            del dico[choice]
-            for element in dico.items():
-                print(element)
-        except Exception as e:
-            print("Vous n'avez pas encore rien fait comme réquetes")
+            c = input('Taper (Y/N) pour continuer avec le menu ?:\n')
         
     elif affiche == 'E' or affiche == 'e':
-        print('============================ REQUETES DÉJÀ VUES ================================')
+        print("""
+            ==================== HISTORIQUES DES REQUETES DÉJÀ VUES ==========================
+        """)
         for key,values in enumerate(dictionnaire.values()):
-            print('->',values)
-        choice_ = int(input('choisir le requete à réexecuter\n'))
+            print(values)
+        choice_ = int(input('Choisir la requête à réexecuter\n'))
         n = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23]
         if choice_ in n:
             
@@ -153,11 +145,12 @@ while c == 'Y' or c == 'y' or c == 'yes':
 
     elif affiche == 'R' or affiche == 'r':
         print("""
-                    ##################### MENU PRINCIPALE ######################## 
+            ================================ MENU PRINCIPALE =================================== 
         """)
         choix(dic)
-    
-    c = input("Taper (Y|y) pour revenir au menu principal sino quitter\n")
+    elif affiche == 'Q' or affiche == 'q':
+        break
+    c = input("Taper (Y|y) pour revenir au menu principal\n")
 
 # print("La nouvelle dictionnaire :")
 # print(dictionnaire)

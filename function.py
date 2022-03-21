@@ -8,58 +8,82 @@ print("""
             ###        #  ##   ##      ##  # ##     ## #     ##       ##  # ##  ##     #  ##
             ###########   ##   ######  ##   ###      ##      #######  ##   ###  ########  #######
     """)
+dictionnaire = {}
 config = {
         'host':'localhost',
         'user':'root',
         'database':'base_exo',
         'password':'passer'
     }
-
-
 db = ps.connect(**config)
 curseur = db.cursor()
 
 
-
-
 dic = {
 
-        1 : "Lister les tous les agences",
-        2 : "Lister tous les caissiers par ordre croissant de leur nom",
-        3 :"Lister tous chef d’agence ainsi que le nom de l’agence",
-        4 :"Lister les comptes de transaction de l’agence Plateau par ordre croissant du solde",
-        5 :"Lister la somme des montants déposés par un caissier dans un compte de transaction de l’agence dont le chef est moussa dop par ordre croissant du montant",
-        6 :"Lister les utilisateurs de l’agence Plateau",
-        7 :"Lister le nombre de compte par agence",
-        8 :"Lister les comptes affectés à l’utilisateur moussa diop durant le mois de Mai 2021",
-        9 :"Lister les utilisateurs à qui on a affecté le compte numéro 001 durant année 2021",
-        10:"Lister le montant des transactions effectué par utilisateur et par date dans l’agence dont le numéro est 001",
-        11: "Lister le nombre d’affectation par utilisateur et numéro de compte durant le premier trimestre de l’année 2021 par ordre croissant de ce nombre d’affectation dans l’agence dont le numéro est 001",
-        12: "Lister les dépôts effectués et les retraits par jour dans l’agence dont le chef est moussa diop par ordre croissant du montant",
-        13: "Lister les montants de transactions et les frais associés effectués par l’utilisateur Assane Faye dans l’agence dont le chef est moussa diop .",
-        14: "Lister la somme des parts de l’agence, de l'état et de l’état des transactions par date dans l’agence dont le numéro est 001.",
-        15: "Lister la somme des parts de l’agence et de l'état par agence durant deuxième de l’année 2021",
-        16: "Lister l’agence qui a fait le plus de transfert durant le mois de Juin 2021",
-        17: "Lister l’agence qui a fait le moins de transfert de dépôt le 10-08-2021",
-        18: "Lister l’agence qui a fait le retrait le plus grand durant le mois de MAI 221",
-        19: "Lister les agences qui n’ont pas fait de dépôt le 10-08-2021",
-        20: "Lister les noms utilisés par l’agence numéro 001 durant le mois de MAI 221",
-        21: "Lister le ou les clients qui ont effectué le dépôt le plus petit durant le mois de MAI 2021",
-        22: "Lister le ou les clients qui ont effectué le plus de dépôt durant le mois de MAI 221",
-        23: "Lister les 5 agences qui ont effectué le plus de transactions durant l’année 2021",
-        24: "Lister les 5 agences dont le montant gagné (somme des frais gagnés sur les transactions) sont les plus faibles en 2021.",
-        25: "Lister l’utilisateur qui fait le plus de transfert dans l’agence dont le chef est moussa diop"
+        1 : "1- Lister les tous les agences",
+        2 : "2- Lister tous les caissiers par ordre croissant de leur nom",
+        3 :"3- Lister tous chef d’agence ainsi que le nom de l’agence",
+        4 :"4- Lister les comptes de transaction de l’agence Plateau par ordre croissant du solde",
+        5 :"5- Lister la somme des montants déposés par un caissier dans un compte de transaction de l’agence dont le chef est moussa dop par ordre croissant du montant",
+        6 :"6- Lister les utilisateurs de l’agence Plateau",
+        7 :"7- Lister le nombre de compte par agence",
+        8 :"8- Lister les comptes affectés à l’utilisateur moussa diop durant le mois de Mai 2021",
+        9 :"9- Lister les utilisateurs à qui on a affecté le compte numéro 001 durant année 2021",
+        10:"10- Lister le montant des transactions effectué par utilisateur et par date dans l’agence dont le numéro est 001",
+        11: "11- Lister le nombre d’affectation par utilisateur et numéro de compte durant le premier trimestre de l’année 2021 par ordre croissant de ce nombre d’affectation dans l’agence dont le numéro est 001",
+        12: "12- Lister les dépôts effectués et les retraits par jour dans l’agence dont le chef est moussa diop par ordre croissant du montant",
+        13: "13- Lister les montants de transactions et les frais associés effectués par l’utilisateur Assane Faye dans l’agence dont le chef est moussa diop .",
+        14: "14- Lister la somme des parts de l’agence, de l'état et de l’état des transactions par date dans l’agence dont le numéro est 001.",
+        15: "15- Lister la somme des parts de l’agence et de l'état par agence durant deuxième de l’année 2021",
+        16: "16- Lister l’agence qui a fait le plus de transfert durant le mois de Juin 2021",
+        17: "17- Lister l’agence qui a fait le moins de transfert de dépôt le 10-08-2021",
+        18: "18- Lister l’agence qui a fait le retrait le plus grand durant le mois de MAI 221",
+        19: "19- Lister les agences qui n’ont pas fait de dépôt le 10-08-2021",
+        20: "20- Lister les noms utilisés par l’agence numéro 001 durant le mois de MAI 221",
+        21: "21- Lister le ou les clients qui ont effectué le dépôt le plus petit durant le mois de MAI 2021",
+        22: "22- Lister le ou les clients qui ont effectué le plus de dépôt durant le mois de MAI 221",
+        23: "23- Lister les 5 agences qui ont effectué le plus de transactions durant l’année 2021",
+        24: "24- Lister les 5 agences dont le montant gagné (somme des frais gagnés sur les transactions) sont les plus faibles en 2021.",
+        25: "25- Lister l’utilisateur qui fait le plus de transfert dans l’agence dont le chef est moussa diop"
 
     }
 
 def choix(dic):
     print("========================================= MENU =================================================\n")
     for key,values in enumerate(dic.values()):
-        print(key+1,'->',values)
+        print(values)
+
+def requete_sql(query):  
+    print("""
+    ======================================= LA REQUÊTE DEMANDEE =====================================\n
+    """)
+
+    db = ps.connect(**config)
+    curseur = db.cursor()
+    curseur.execute(query)
+    result = curseur.fetchall()
+    for element in result:
+        print(element)
+
+
+
+
+
+
+
+
+
+
+
+
+########################### FONCTION A OPTIMISER ############################
 
 def choice_1_():
     
-    print("=======================================LES AGENCES SONT :=====================================\n")
+    print("""
+    ======================================= LA REQUÊTE DEMANDEE =====================================\n
+    """)
 
     db = ps.connect(**config)
     curseur = db.cursor()
